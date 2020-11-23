@@ -1,1 +1,4 @@
-# Playground-Discord-Bot
+# Playground Discord Bot
+
+
+Eris edition coming soon
