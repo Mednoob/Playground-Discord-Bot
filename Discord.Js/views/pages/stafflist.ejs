@@ -1,0 +1,76 @@
+<html>
+  <%- include("../partial/meta.ejs") %>
+  <%- include("../partial/style.ejs") %>
+  <body>
+    <%- include("../partial/navbar.ejs") %>
+    <div class="jumbotron" style="display: flex; align-items: center; min-height: 40%;">
+            <div class="container p-5 text-center">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="text-white">
+                            <h1 class="mb-3">Daftar Staff <%- pg.name %></h1>
+                          Ini adalah daftar staff yang mengatur serta menjaga server <%- pg.name %>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    <div class="jumbotron">
+    <div class="container text-center">
+      <h3 class="text-white" style="margin-bottom: 30px;">
+        <%- ruler.name %>
+      </h3>
+        <div class="d-flex flex-wrap justify-content-center" style="margin: 30px;">
+          <% ruler.members.forEach(x => { %>
+          <div class="col-sm-3" style="text-align: center; items-align: center; margin: 10px;">
+            <img src="<%- x.user.displayAvatarURL({format: 'png', size: 2048, dynamic: true}) %>" width="200" height="200" class="rounded-pill">
+            <h5 class="text-white" style="margin-top: 10px;">
+              <%- x.user.username %> <%- pg.owner.id == x.user.id ? "♛" : "" %>
+            </h5>
+          </div>
+          <% }) %>
+        </div>
+      <h3 class="text-white" style="margin-top: 50px; margin-bottom: 30px;"> 
+        <%- coruler.name %>
+      </h3>
+       <div class="d-flex flex-wrap justify-content-center" style="margin: 30px;">
+         <% coruler.members.filter(y => !y.roles.cache.has(ruler.id)).forEach(x => { %>
+         <div class="col-sm-3" style="text-align: center; items-align: center; margin: 10px;">
+           <img src="<%- x.user.displayAvatarURL({format: 'png', size: 2048, dynamic: true}) %>" width="200" height="200" class="rounded-pill">
+           <h5 class="text-white" style="margin-top: 10px;">
+             <%- x.user.username %>
+           </h5>
+           <% if(pg.owner.id == x.user.id) { %>
+             <span class="badge bg-light text-dark">Owner Server</span>
+           <% } else {} %>
+         </div>
+         <% }) %>
+      </div>
+      <h3 class="text-white" style="margin-top: 50px; margin-bottom: 30px;">
+        <%- admin.name %>
+      </h3>
+      <div class="d-flex flex-wrap justify-content-center" style="margin: 30px;">
+        <% admin.members.filter(y => !y.roles.cache.has(ruler.id) || !y.roles.cache.has(coruler.id)).forEach(x => { %>
+        <div class="col-sm-3" style="text-align: center; items-align: center; margin: 10px;">
+          <img src="<%- x.user.displayAvatarURL({format: 'png', size: 2048, dynamic: true}) %>" width="200" height="200" class="rounded-pill">
+          <h5 class="text-white" style="margin-top: 10px;">
+            <%- x.user.username %> <%- pg.owner.id == x.user.id ? "♛" : "" %>
+          </h5>
+        </div>
+        <% }) %>
+      </div>
+      <h3 class="text-white" style="margin-top: 50px; margin-bottom: 30px;">
+        <%- mod.name %>
+      </h3>
+      <div class="d-flex flex-wrap justify-content-center" style="margin: 30px;">
+        <% mod.members.filter(y => !y.roles.cache.has(ruler.id) || !y.roles.cache.has(coruler.id) || !y.roles.cache.has(admin.id)).forEach(x => { %>
+        <div class="col-sm-3" style="text-align: center; items-align: center; margin: 10px;">
+          <img src="<%- x.user.displayAvatarURL({format: 'png', size: 2048, dynamic: true}) %>" width="200" height="200" class="rounded-pill">
+          <h5 class="text-white" style="margin-top: 10px;">
+            <%- x.user.username %> <%- pg.owner.id == x.user.id ? "♛" : "" %>
+          </h5>
+        </div>
+        <% }) %>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>
